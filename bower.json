@@ -1,0 +1,14 @@
+{
+  "name": "olos-oscillator",
+  "version": "0.0.0",
+  "license": "MIT",
+  "main": "olos-oscillator.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#~0.5.1",
+    "paper-slider": "Polymer/paper-slider#~0.5.1",
+    "core-icons": "Polymer/core-icons#~0.5.5"
+  },
+  "devDependencies": {
+    "web-component-tester": "Polymer/web-component-tester#^1.1.4"
+  }
+}
