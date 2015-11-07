@@ -1,79 +1,95 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../paper-slider/paper-slider.html">
-<link rel="import" href="../paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
-<link rel="import" href="../paper-dropdown/paper-dropdown.html">
-<link rel="import" href="../paper-item/paper-item.html">
-<link rel="import" href="../core-menu/core-menu.html">
-
-<link rel="import" href="../core-icons/core-icons.html">
-<link rel="import" href="../core-icons/av-icons.html">
-
-<!--
-olos-destination
-##### Example
-
-
-@element olos-destination
-@blurb 
-@status alpha
-@homepage 
--->
-<polymer-element name="olos-destination" attributes="input width height color src showControls play rootfolder">
-  <template>
-      <link rel="stylesheet" href="olos-destination.css"></link>
-
-      <div id="container">
-        <core-icon icon="av:volume-up" style="width: 48px; height: 48px; display:block; margin-left:auto; margin-right:auto "></core-icon>
-      </div>
-
-  </template>
+  <link rel="import" href="../paper-slider/paper-slider.html">
+  <link rel="import" href="../paper-icon-button/paper-icon-button.html">
+  <link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
+  <link rel="import" href="../iron-dropdown/iron-dropdown.html">
+  <link rel="import" href="../paper-item/paper-item.html">
+  <link rel="import" href="../paper-menu/paper-menu.html">
+  
+  <link rel="import" href="../iron-icons/iron-icons.html">
+  <link rel="import" href="../core-icons/av-icons.html">
+  
+  <!--
+  olos-destination
+  ##### Example
+  
+  
+  @element olos-destination
+  @blurb 
+  @status alpha
+  @homepage 
+  -->
+  <dom-module id="olos-destination">
+    <link rel="import" type="css" href="olos-destination.css">
+    <template>
+  
+        <div id="container">
+          <iron-icon icon="av:volume-up" style="width: 48px; height: 48px; display:block; margin-left:auto; margin-right:auto "></iron-icon>
+        </div>
+  
+    </template>
+  </dom-module>
   <script>
-    (function(params){
-
-      Polymer('olos-destination', {
-
-        volume: 0.5,
-        on: false,
-        color: '#00CCFF',
-        width: 300,
-        height: 300,
-        rootfolder: '../olos-destination/',
-
-        // handle i/o
-        input: null,
-        output: null,
-
-        ready: function() {
+    (function (params) {
+      Polymer({
+        is: 'olos-destination',
+        properties: {
+          color: {
+            type: String,
+            value: '#00CCFF',
+            notify: true
+          },
+          height: {
+            type: Number,
+            value: 300,
+            notify: true
+          },
+          input: {
+            value: null,
+            notify: true
+          },
+          on: {
+            type: Boolean,
+            value: false
+          },
+          output: { value: null },
+          play: { notify: true },
+          rootfolder: {
+            type: String,
+            value: '../olos-destination/',
+            notify: true
+          },
+          showControls: { notify: true },
+          src: { notify: true },
+          volume: {
+            type: Number,
+            value: 0.5
+          },
+          width: {
+            type: Number,
+            value: 300,
+            notify: true
+          }
+        },
+        ready: function () {
           var self = this;
-          self._audioContext = audioContext;
-
+          self._audioContext = audioContext;  // for now, both L + R are the same
           // for now, both L + R are the same
           self.input = self.output = self._audioContext.createGain();
           self.input.connect(self._audioContext.destination);
         },
-
-        _toggleStart: function() {
-          if(!this.on) {
+        _toggleStart: function () {
+          if (!this.on) {
             this.input.connect(this._audioContext.destination);
-          }
-          else {
+          } else {
             this.input.disconnect();
           }
           this.on = !this.on;
         },
-
-        _init: function() {
-        }
-
-        // publicAudio: function() {
-        //   this.output.gain.value = 1.0;
-        // }
-
+        _init: function () {
+        }  // publicAudio: function() {
+           //   this.output.gain.value = 1.0;
+           // }
       });
-
-    })();
-
+    }());
   </script>
-
-</polymer-element>
