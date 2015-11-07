@@ -19,13 +19,61 @@ olos-destination
 @status alpha
 @homepage 
 -->
-<polymer-element name="olos-destination" attributes="inputLeft inputRight width height color src showControls play rootfolder">
+<polymer-element name="olos-destination" attributes="input width height color src showControls play rootfolder">
   <template>
-    <link rel="stylesheet" href="olos-destination.css"></link>
-    <div id="container" width="300px">
-      <core-icon icon="av:volume-up" ></core-icon>
-    </div>
+      <link rel="stylesheet" href="olos-destination.css"></link>
+
+      <div id="container">
+        <core-icon icon="av:volume-up" style="width: 48px; height: 48px; display:block; margin-left:auto; margin-right:auto "></core-icon>
+      </div>
+
   </template>
-  <script src="olos-destination.js"type="text/javascript"></script>
+  <script>
+    (function(params){
+
+      Polymer('olos-destination', {
+
+        volume: 0.5,
+        on: false,
+        color: '#00CCFF',
+        width: 300,
+        height: 300,
+        rootfolder: '../olos-destination/',
+
+        // handle i/o
+        input: null,
+        output: null,
+
+        ready: function() {
+          var self = this;
+          self._audioContext = audioContext;
+
+          // for now, both L + R are the same
+          self.input = self.output = self._audioContext.createGain();
+          self.input.connect(self._audioContext.destination);
+        },
+
+        _toggleStart: function() {
+          if(!this.on) {
+            this.input.connect(this._audioContext.destination);
+          }
+          else {
+            this.input.disconnect();
+          }
+          this.on = !this.on;
+        },
+
+        _init: function() {
+        }
+
+        // publicAudio: function() {
+        //   this.output.gain.value = 1.0;
+        // }
+
+      });
+
+    })();
+
+  </script>
 
 </polymer-element>
