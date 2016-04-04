@@ -1,7 +1,15 @@
 :host {
   /*display: block;*/
   color: black;
-  background:yellow;
-  width:100px;
-  height:100px;
+  background:#FFFF46;
+  opacity:0.8;
+  width:60px;
+  height:60px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3;
+  cursor:pointer;
+}
+
+:host:hover {
+	// opacity:1.0 !important;
 }
